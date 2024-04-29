@@ -11,8 +11,8 @@ class Bus(db.Model):
     time = db.Column(db.Text)
 
 class ETA(db.Model):
-    stop_id = db.Column(db.Integer)
+    #__table_args__ = {'extended_existing': True}
+    id = db.Column(db.Integer, primary_key=True)
+    stop_id = db.Column(db.Float)
     time_slot = db.Column(db.Integer)
-    latitude = db.Column(db.Float)
-    longitude = db.Column(db.Float)
     eta_bus = db.Column(db.Float)

@@ -19,8 +19,10 @@ def create_app():
     #db.app = application
     db.init_app(app)
 
-    with app.app_context():
-        db.create_all()
+    #with app.app_context():
+    #    db.create_all()
 
     app.register_blueprint(bus)
+
+    return app
 
