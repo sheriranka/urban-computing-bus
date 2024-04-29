@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request
 from datetime import timedelta
 import os
-from .database import db, Bus
+from .database import db, Bus, ETA
 from .bus_api import bus
 
 

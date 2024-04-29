@@ -15,4 +15,4 @@ class ETA(db.Model):
     time_slot = db.Column(db.Integer)
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
-    eta = db.Column(db.Float)
+    eta_bus = db.Column(db.Float)
