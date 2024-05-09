@@ -39,77 +39,6 @@ export default function GPS_screen() {
 
   const currNav = useNavigation();
 
-  const data = [
-    { value: 'Ruta 1', id: '1' },
-    { value: 'Ruta 2', id: '2' },
-    { value: 'Ruta 3', id: '3' },
-
-  ];
-
-  const paradas =  [
-    {
-      key: 1,
-      value: 'Parada 1: ROTC Estacionamiento', 
-    },
-
-    {
-      key: 2,
-      value: 'Parada 2: ROTC Entrada',
-    },
-    {
-      key: 3,
-      value: 'Parada 3: Estudios Generales', 
-    },
-  {
-    key: 4,
-    value: 'Parada 4: Ciencias Naturales',
-  },
-  {
-    key: 5,
-    value: 'Parada 5: Paseo Peatonal',
-  },
-  {
-    key: 6,
-    value: 'Parada 6: Parque del Centenario',
-  },
-  {
-    key: 9, 
-    value: 'Parada 9: Cuatro Grandes',
-  },
-  {
-    key: 10,
-    value: 'Parada 10: Complejo Deportivo', 
-  },
-  {
-    key: 11,
-    value: 'Parada 11: Talleres',
-  },
-
-  {
-    key: 13,
-    value: 'Parada 13: Biblioteca Lazaro', 
-  },
-
-  {
-    key: 19,
-    value: 'Parada 19: Administracion de Empresas', 
-  },
-
-  {
-    key: 20,
-    value: 'Parada 20: Estacionamiento Derecho',
-  },
-
-  {
-    key: 23,
-    value: 'Parada 23: Estacionamiento Sociales', 
-  },
-
-  {
-    key: 24,
-    value: 'Parada 24: Hogar Masonico',
-  }
-]
 
   const [value, setValue] = useState(null);
   const [lat, setLat] = useState(null);
@@ -122,6 +51,7 @@ export default function GPS_screen() {
   const [savedLocations, setSavedLocations] = useState(null);
   const [start_stop, setStartStop] = useState(null);
   const [end_stop, setEndStop] = useState(null);
+  const [timeSlot, setTimeSlot] = useState(null);
 
 
 
@@ -172,11 +102,15 @@ export default function GPS_screen() {
 
   };
 
+
+
   const [load, setLoad] = useState(false)
   const [load2, setLoad2] = useState(false)
   
   return (
     <ScrollView>
+
+    <Text style={[styles.text3, {marginTop:"10%"}]}>See Map of IUPI Route</Text>
 
     <TouchableOpacity
               style={styles.button}
@@ -186,66 +120,14 @@ export default function GPS_screen() {
               <Text style={styles.text}>Map</Text>
           </TouchableOpacity>
 
-      <View style={styles.select}>
-        <SelectList
-              boxStyles={[{ backgroundColor: 'white', borderColor: "white" }]}
-              dropdownStyles={[{ backgroundColor: 'white', borderColor: "white" }]}
-              data={paradas}
-              setSelected={setStartStop}
-              placeholder="Select start stop"
-              save="key"
-            />
-      </View>
 
-      <View style={styles.select}>
-      <SelectList
-              boxStyles={[{ backgroundColor: 'white', borderColor: "white" }]}
-              dropdownStyles={[{ backgroundColor: 'white', borderColor: "white" }]}
-              data={paradas}
-              setSelected={setEndStop}
-              placeholder="Select end stop"
-              save="key"
-            />
-      </View>
-
-    
-      <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-          
-              
-              GetLocation(0)
-            
-
-
-            }
-            
-          }
-            >
-          <Text style={styles.text}>Get Location Only</Text>
-      </TouchableOpacity>
-
-      <View>
-      
-          {load == true && (<ActivityIndicator/>)}
-
-      </View>
-      
-      <Text style={styles.text2}>Lat: {lat}, Long: {lon}, Acceleration: {acceleration}</Text>
-      <Text style={styles.text2}>Timestamp: {time}</Text>
-
-
+      <Text style={[styles.text3, {marginTop:"10%"}]}>Button to get time, location and upload to database:</Text>
 
       <TouchableOpacity
           style={styles.button}
-          onPress={() => {
-          
-              
+          onPress={() => {  
               GetLocation(1)
-  
-
             }
-            
           }
             >
           <Text style={styles.text}>Get Location and Upload to Database</Text>
@@ -254,6 +136,30 @@ export default function GPS_screen() {
       <View>
 
            {load2 == true && (<ActivityIndicator/>)}
+
+      </View>
+
+
+        
+      <Text style={styles.text2}>Lat: {lat}, Long: {lon}, Acceleration: {acceleration}</Text>
+      <Text style={styles.text2}>Timestamp: {time}</Text>
+
+  
+      <Text style={[styles.text3, {marginTop:"10%"}]}>Button to get current time and location only:</Text>
+    
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+              GetLocation(0)
+            }
+          }
+            >
+          <Text style={styles.text}>Get Location Only</Text>
+      </TouchableOpacity>
+
+      <View>
+      
+          {load == true && (<ActivityIndicator/>)}
 
       </View>
 
@@ -276,6 +182,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
+  },
+
+  text3: {
+    marginTop: "5%",
+    fontSize: 20,
+    lineHeight: 21,
+    marginLeft: "10%",
+    marginRight: "10%",
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "black",
   },
 
   text2: {
@@ -303,6 +220,8 @@ const styles = StyleSheet.create({
     marginTop: "5%",
   },
   select: {
-    margin: 12
+    margin: 12,
+    marginLeft: "10%",
+    marginRight: "10%"
   }
 });
