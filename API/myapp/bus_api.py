@@ -31,7 +31,7 @@ def receive_gps_data():
     return jsonify({"message": "GPS data received and saved successfully"}), 201
 
 
-@bus.route('/get_eta', methods=['GET'])
+@bus.route('/get_eta', methods=['POST'])
 def get_eta():
     data = request.json
     stop = data['stop']
@@ -45,7 +45,7 @@ def get_eta():
 
     eta_no_bus = 0
 
-    route = [4, 5, 6, 13, 24, 23, 20, 19, 9, 10, 11, 2.1, 1, 2.2, 3]
+    route = [4, 5, 6, 13, 24, 23, 20, 19, 9, 10, 11, 2.1, 1, 3]
 
     eta_dict = {}
 
@@ -56,6 +56,10 @@ def get_eta():
     ind = route.index(stop)
 
     st = route[ind]
+
+    last_stop = route[ind - 1]
+
+    last_stop_time = eta_dict[float(last_stop)].eta_bus
 
     eta_start_end = 0
 
@@ -69,7 +73,8 @@ def get_eta():
 
         eta_start_end += eta_dict[float(st)].eta_bus
 
-    return jsonify({"eta": eta_no_bus}, {"eta_s_e": eta_start_end}), 201
+    return jsonify({"eta_prev": last_stop_time},{"eta": eta_no_bus}, {"eta_s_e": eta_start_end}), 201
+
 
 @bus.route('/get_bus', methods=['GET'])
 def get_latest_gps_data():
